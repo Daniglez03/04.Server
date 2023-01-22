@@ -8,16 +8,13 @@ import { SERVER_PORT } from '../config/config.mjs';
 
 const app = express();
 
+app.use(express.json())
+
 app.disable('x-powered-by');
 app.disable('etag');
-// Middleware
-// Protege de vulnerabilidades web
 app.use(helmet())
-// Recoge el obj de solicitud (PUT,POST) como matrices
 app.use(express.urlencoded({extended: true}));
-// Permite usar recursos en el propio server
 app.use(cors());
-// Establece la carpeta publica en el servidor NO USADO EN EL EJERCICIO
 app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.get('/api/v1', (req, res) => {
